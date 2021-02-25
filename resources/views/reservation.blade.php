@@ -64,6 +64,7 @@
                         <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
                             Indiquez nous votre email
                         </p>
+
                         <p class="mt-2 max-w-2xl text-xl text-gray-500 lg:mx-auto">
                             Veuillez renseigner votre adresse email ci-dessous pour réserver.
                         </p>
