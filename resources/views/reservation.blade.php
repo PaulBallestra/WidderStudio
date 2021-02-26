@@ -39,23 +39,90 @@
                     <p class="mt-2 max-w-2xl text-xl text-gray-500 lg:mx-auto">
                         Vous devez selectionner un jour ainsi qu'un ou deux créneaux de réservation si il reste de la
                         place.
+                        (Aucune réservation le jour même)
                     </p>
 
                     <form class="mt-4 space-y-6 max-w-7x1" action="/reservation" method="POST">
 
-                        @csrf
+                    @csrf
 
-                        <!-- DATE PICKER -->
+                    <!-- DATE PICKER -->
                         <input class="mt-3"
                                wire:model="taskduedate"
-                               name="datepicker"
+                               name="selectedDate"
+                               value="{{ old('selectedDate') }}"
                                type="date" class="form-control datepicker" placeholder="Due Date" autocomplete="off"
                                data-provide="datepicker" data-date-autoclose="true" data-date-format="mm/dd/yyyy"
                                data-date-today-highlight="true"
                         >
 
                         <!-- SELECTION DES CRENEAUX -->
-                        <div>
+                        <div class="py-10 max-w-7xl flex flex-col mx-auto">
+
+                            <div class="py-2 align-middle inline-block min-w-full sm:px-3 lg:px-4">
+
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <tbody class="bg-gray-50">
+                                    <tr>
+                                        <th>
+                                            <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
+                                                9-10
+                                                <input type="checkbox" name="check910">
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
+                                                10-11
+                                                <input type="checkbox" name="check1011">
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
+                                                11-12
+                                                <input type="checkbox" name="check1112">
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
+                                                12-13
+                                                <input type="checkbox" name="check1213">
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
+                                                13-14
+                                                <input type="checkbox" name="check1314">
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
+                                                14-15
+                                                <input type="checkbox" name="check1415">
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
+                                                15-16
+                                                <input type="checkbox" name="check1516">
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
+                                                16-17
+                                                <input type="checkbox" name="check1617">
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
+                                                17-18
+                                                <input type="checkbox" name="check1718">
+                                            </a>
+                                        </th>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
 
                         </div>
 

@@ -9,9 +9,9 @@
 </head>
 <body>
 
-    <h1> Cher </h1> <p> {{ $email }} </p>
+    <h3> Cher <strong> {{ $email }} </strong> </h3>
 
-    <h3> Votre réservation du {{ $datepicker }} est validée ! </h3>
+    <h5> Votre réservation du {{ $selectedDate }} est validée ! </h5>
 
     <p> Pour annuler votre reservation veuillez suivre ce lien </p>
 

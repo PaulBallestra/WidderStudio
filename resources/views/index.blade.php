@@ -349,7 +349,7 @@
                     </div>
                     <div class="ml-4">
                         <dt class="text-lg leading-6 font-medium text-gray-900">
-                            Un tchat avec nos ingénieurs
+                            Un chat avec nos ingénieurs
                         </dt>
                         <dd class="mt-2 text-base text-gray-500">
                             En cas de besoin, un ingénieur du son sera à votre disposition pour vous répondre.
