@@ -13,6 +13,14 @@
 
     <h5> Votre réservation du {{ $selectedDate }} est validée ! </h5>
 
+    <p> Votre créneau : {{ $creneau }} </p>
+
+    <?php if(isset($creneau2)) : //Si il y a un 2eme créneau ?>
+
+        <p> Votre 2ème créneau : {{ $creneau2 }} </p>
+
+    <?php endif; ?>
+
     <p> Pour annuler votre reservation veuillez suivre ce lien </p>
 
     {{ $_token  }}

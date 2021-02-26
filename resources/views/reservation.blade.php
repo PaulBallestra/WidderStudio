@@ -2,10 +2,28 @@
 
 @section('content')
 
+    <!-- INCLUDE NAVBAR -->
     @include('partials.navbar')
 
+    <!-- GESTION POUR QUAND TOUS SE PASSE BIEN -->
+    @if (session('status'))
 
+        <div
+            class="max-w-7xl text-white mt-3 px-6 py-4 border-0 rounded relative mb-3 bg-green-500 flex flex-col mx-auto">
+            <span class="inline-block align-middle mr-8">
 
+                {{ session('status') }}
+
+            </span>
+            <button
+                class="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none">
+                <span>×</span>
+            </button>
+        </div>
+
+    @endif
+
+    <!-- GESTION DES ERREURS -->
     @if ($errors->any())
 
         <div
@@ -67,55 +85,55 @@
                                         <th>
                                             <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
                                                 9-10
-                                                <input type="checkbox" name="check910">
+                                                <input type="checkbox" name="9-10h">
                                             </a>
                                         </th>
                                         <th>
                                             <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
                                                 10-11
-                                                <input type="checkbox" name="check1011">
+                                                <input type="checkbox" name="10-11h">
                                             </a>
                                         </th>
                                         <th>
                                             <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
                                                 11-12
-                                                <input type="checkbox" name="check1112">
+                                                <input type="checkbox" name="11-12h">
                                             </a>
                                         </th>
                                         <th>
                                             <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
                                                 12-13
-                                                <input type="checkbox" name="check1213">
+                                                <input type="checkbox" name="12-13h">
                                             </a>
                                         </th>
                                         <th>
                                             <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
                                                 13-14
-                                                <input type="checkbox" name="check1314">
+                                                <input type="checkbox" name="13-14h">
                                             </a>
                                         </th>
                                         <th>
                                             <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
                                                 14-15
-                                                <input type="checkbox" name="check1415">
+                                                <input type="checkbox" name="14-15h">
                                             </a>
                                         </th>
                                         <th>
                                             <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
                                                 15-16
-                                                <input type="checkbox" name="check1516">
+                                                <input type="checkbox" name="15-16h">
                                             </a>
                                         </th>
                                         <th>
                                             <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
                                                 16-17
-                                                <input type="checkbox" name="check1617">
+                                                <input type="checkbox" name="16-17h">
                                             </a>
                                         </th>
                                         <th>
                                             <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
                                                 17-18
-                                                <input type="checkbox" name="check1718">
+                                                <input type="checkbox" name="17-18h">
                                             </a>
                                         </th>
                                     </tr>

@@ -33,7 +33,19 @@ class ReservationController extends Controller
             dd($params);
         }
 
+        $selectedCreneaux = [];
+
         //GESTION CRENEAUX
+        foreach(Config::get('information.open_hours') as $creneau){
+            if(isset($params[$creneau]) && $params[$creneau] === 'on')
+                array_push( $selectedCreneaux, $creneau); //on ajoute dans le tableau
+        }
+
+        $params['creneau'] = $selectedCreneaux[0];
+
+        //Si il y a un 2eme creneaux, on l'ajoute
+        if(count($selectedCreneaux) > 1)
+            $params['creneau2'] = $selectedCreneaux[1];
 
         //Génération du token
         $token = md5(uniqid(true));
@@ -52,6 +64,6 @@ class ReservationController extends Controller
             $m->to(Config::get('information.email'), Config::get('information.name_email'))->subject('Confirmation Réservation WidderStudio');
         });
 
-        return $request;
+        return redirect('reservation')->with('status', 'Votre réservation a bien été prise en compte, veuillez vérifier vos emails !');
     }
 }
