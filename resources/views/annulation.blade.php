@@ -45,7 +45,7 @@
 
     @endif
 
-    <!-- SELECTION DES CRENEAUX -->
+    <!-- AFFICHAGE DE L'INPUT DU TOKEN DE L'USER -->
     <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
         <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
             <div class="lg:text-center">
@@ -59,21 +59,28 @@
                     Veuillez renseigner le token qui vous a été envoyé par mail lors de la réservation.
                 </p>
 
-                <div class="rounded-md shadow-sm -space-y-px mt-3">
-                    <div>
-                        <input id="token_text" name="token_text" type="text" required
-                               class="align-middle inline-block appearance-none rounded-none relative block w-3/6 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm"
-                               placeholder="<?= md5(uniqid(true)) ?>" value="{{ old('email') }}">
-                    </div>
-                </div>
+                <form class="mt-4 space-y-6 max-w-7x1" action="/reservation/annulation" method="POST">
 
-                <!-- BTN Annuler -->
-                <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                    <button type="submit"
-                            class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-                        Annuler
-                    </button>
-                </div>
+                    @csrf
+
+                    <div class="rounded-md shadow-sm -space-y-px">
+                        <div>
+                            <label for="email-address" class="sr-only">Email address</label>
+                            <input id="token_user" name="token_user" type="text" required
+                                   class="align-middle inline-block appearance-none rounded-none relative block w-3/6 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm"
+                                   placeholder="<?= md5(uniqid(true)) ?>" value="{{ old('token_user') }}">
+                        </div>
+                    </div>
+
+                    <!-- BTN Reserver -->
+                    <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                        <button type="submit"
+                                class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                            Annuler
+                        </button>
+                    </div>
+
+                </form>
             </div>
         </div>
     </div>

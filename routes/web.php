@@ -8,5 +8,5 @@ Route::get('/', [App\Http\Controllers\IndexController::class, 'index'])->name('i
 Route::get('/reservation', [App\Http\Controllers\ReservationController::class, 'show'])->name('reservation');
 Route::post('/reservation', [App\Http\Controllers\ReservationController::class, 'send'])->name('reservation.send');
 
-Route::get('/reservation/annulation', [App\Http\Controllers\ReservationController::class, 'showAnnulation'])->name('annulation');
-
+Route::get('/reservation/annulation', [App\Http\Controllers\ReservationController::class, 'showAnnulation']);
+Route::post('/reservation/annulation', [App\Http\Controllers\ReservationController::class, 'sendAnnulation']);

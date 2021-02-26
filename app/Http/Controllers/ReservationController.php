@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AnnulationFormRequest;
 use App\Http\Requests\ReservationFormRequest;
 use App\Mail\Reservation;
 use Illuminate\Support\Carbon;
@@ -31,8 +32,6 @@ class ReservationController extends Controller
 
         $params = $request->all();
         //$params += ["subject" => "WidderStudio Confirmation Réservation"];
-
-        //Mail::to('widdershins@studio.com', 'WidderStudio')->send(new Reservation($params));
 
         //Si il y a plus de 5 items c'est que l'user a selectionné plusieurs checkbox (Token, Date, Creneau1 et/ou Creneau2, email)
         if(count($params) > 5){
@@ -64,6 +63,8 @@ class ReservationController extends Controller
             'token' => $token
         ]);
 
+        //Mail::to('widdershins@studio.com', 'WidderStudio')->send(new Reservation($params));
+
         //Envoi de l'email
         Mail::send('emails.reservation_mail', $params, function ($m) use ($params){
             $m->from($params['email']);
@@ -71,5 +72,23 @@ class ReservationController extends Controller
         });
 
         return redirect('reservation')->with('status', 'Votre réservation a bien été prise en compte, veuillez vérifier vos emails !');
+    }
+
+    //Fonction qui va envoyer l'annulation de la reservation
+    public function sendAnnulation(AnnulationFormRequest $request)
+    {
+
+        $params = $request->all();
+
+        //dd($params['token_user']);
+
+        //DELETE de la row ayant le token
+        DB::table('reservations')->where('token', '=', $params['token_user'])->delete();
+
+        //On renvoit un mail pour valider le fait qu'il a annulé son
+
+
+        return redirect('reservation/annulation')->with('status', 'Votre annulation de réservation a bien été validée, en espérant vous revoir vite !');
+
     }
 }
