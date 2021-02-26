@@ -19,6 +19,12 @@ class ReservationController extends Controller
         return view('reservation');
     }
 
+    //Function qui va afficher la page d'annulation d'une réservation
+    public function showAnnulation()
+    {
+        return view('annulation');
+    }
+
     //Fonction qui va envoyer les infos de la reservation
     public function send(ReservationFormRequest $request)
     {

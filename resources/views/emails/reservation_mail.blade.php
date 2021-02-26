@@ -9,7 +9,7 @@
 </head>
 <body>
 
-    <h3> Cher <strong> {{ $email }} </strong> </h3>
+    <h3> Cher  {{ $email }} </h3>
 
     <h5> Votre réservation du {{ $selectedDate }} est validée ! </h5>
 
@@ -21,11 +21,9 @@
 
     <?php endif; ?>
 
-    <p> Pour annuler votre reservation veuillez suivre ce lien </p>
+    <p> Pour annuler votre reservation veuillez suivre ce lien et rentrer ce token : {{ $_token  }} </p>
 
-    {{ $_token  }}
-
-
+    <p> Au revoir et à bientôt au WidderStudio </p>
 
 </body>
 </html>
