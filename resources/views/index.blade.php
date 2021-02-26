@@ -374,7 +374,32 @@
             </p>
         </div>
 
-        METTRE GOOGLE MAP
+        <!-- GOOGLE MAP -->
+        <div id="map" class="mt-3" style="height: 400px; width: 100%;"></div>
+
+        <script>
+            // Initialize and add the map
+            function initMap() {
+                // The location of
+                const studio = { lat: 51.532005, lng: -0.177331 }; //lat et long du studio
+                // The map, centered at Uluru
+                const map = new google.maps.Map(document.getElementById("map"), {
+                    zoom: 4,
+                    center: studio,
+                });
+                // The marker, positioned
+                const marker = new google.maps.Marker({
+                    position: studio,
+                    map: map,
+                });
+            }
+        </script>
+
+        <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+        <script
+            src="https://maps.googleapis.com/maps/api/js?key=<?= env('APP_GOOGLE_API') ?>&callback=initMap&libraries=&v=weekly"
+            async
+        ></script>
 
     </div>
 </div>
