@@ -21,7 +21,8 @@ class ReservationSeeder extends Seeder
         for($i = 0; $i < 10; $i++){
             DB::table('reservations')->insert([
                 'email' => $faker->email,
-                'selectedDate' => $faker->dateTimeBetween('now', '+30 days')
+                'selectedDate' => $faker->dateTimeBetween('now', '+30 days'),
+                'token' => md5(uniqid(true))
             ]);
         }
 
