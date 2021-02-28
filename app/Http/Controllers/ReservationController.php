@@ -59,14 +59,19 @@ class ReservationController extends Controller
         foreach (Config::get('information.open_hours') as $creneau) {
             if (isset($params[$creneau]) && $params[$creneau] === 'on')
                 array_push($selectedCreneaux, $creneau); //on ajoute dans le tableau
+
         }
 
-        //Pour le créneau1
+        if(count($selectedCreneaux) === 0)
+            return redirect('reservation')->with('error', 'Vous devez réserver au moin 1 créneau !');
+
+
         $params['creneau'] = $selectedCreneaux[0];
 
         //Stockage du creneau2 si il existe
         if (count($selectedCreneaux) > 1)
             $params['creneau2'] = $selectedCreneaux[1];
+
 
         //Génération du token
         $token = md5(uniqid(true));

@@ -23,7 +23,6 @@
 
     <p> Pour annuler votre reservation veuillez suivre ce <a href="https://laravel-widderstudio.herokuapp.com/reservation/annulation"> lien </a> et rentrer ce token : {{ $_token  }} </p>
 
-    <p> Au revoir et à bientôt au WidderStudio </p>
 
 </body>
 </html>
