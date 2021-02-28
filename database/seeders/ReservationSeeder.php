@@ -23,7 +23,7 @@ class ReservationSeeder extends Seeder
                 'selectedDate' => $faker->dateTimeBetween('now', '+30 days'),
                 'token' => md5(uniqid(true)),
                 'creneau1' => $tabCrenaux[rand(0, count($tabCrenaux)-1)],
-                'creneau2' => '',
+                'creneau2' => '', //Pour les seeders, je n'ai rempli que le creneau1
             ]);
         }
 

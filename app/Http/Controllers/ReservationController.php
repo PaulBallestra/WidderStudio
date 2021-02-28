@@ -46,22 +46,40 @@ class ReservationController extends Controller
                 array_push( $selectedCreneaux, $creneau); //on ajoute dans le tableau
         }
 
+        //Pour le créneau1
         $params['creneau'] = $selectedCreneaux[0];
-
-        //Si il y a un 2eme creneaux, on l'ajoute
-        if(count($selectedCreneaux) > 1)
-            $params['creneau2'] = $selectedCreneaux[1];
 
         //Génération du token
         $token = md5(uniqid(true));
         $params['_token'] = $token; //on modifie le token déjà existant (celui de mailtrap) avec le new
 
-        //Stockage en bd
-        DB::table('reservations')->insert([
-            'email' => $params['email'],
-            'selectedDate' => $params['selectedDate'],
-            'token' => $token
-        ]);
+        //Si il y a un 2eme creneaux, on l'ajoute
+        if(count($selectedCreneaux) > 1){
+
+            //Stockage du creneau2
+            $params['creneau2'] = $selectedCreneaux[1];
+
+            //Stockage en bd
+            DB::table('reservations')->insert([
+                'email' => $params['email'],
+                'selectedDate' => $params['selectedDate'],
+                'token' => $token,
+                'creneau2' => $params['creneau2']
+            ]);
+
+        }else{ //Alors oui c'est aps bien de faire 2 fois une insertion mais j'avoues j'ai pas trouvé mieux
+
+            //Stockage en bd
+            DB::table('reservations')->insert([
+                'email' => $params['email'],
+                'selectedDate' => $params['selectedDate'],
+                'token' => $token,
+                'creneau1' => $params['creneau'],
+                'creneau2' => '' //null en gros
+            ]);
+
+        }
+
 
         //Mail::to('widdershins@studio.com', 'WidderStudio')->send(new Reservation($params));
 
