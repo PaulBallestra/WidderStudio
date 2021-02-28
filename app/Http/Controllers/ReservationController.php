@@ -45,11 +45,11 @@ class ReservationController extends Controller
         //check du jour de la semaine
         switch ($dayOfWeek) {
             case 6:
-                return redirect('reservation')->with('error', 'Fermé le samedi');
+                return redirect('reservation')->with('error', 'Fermé le samedi')->withInput();
                 break;
 
             case 0:
-                return redirect('reservation')->with('error', 'Fermé le dimanche');
+                return redirect('reservation')->with('error', 'Fermé le dimanche')->withInput();
                 break;
         }
 
@@ -72,17 +72,21 @@ class ReservationController extends Controller
         $token = md5(uniqid(true));
         $params['_token'] = $token; //on modifie le token déjà existant (celui de mailtrap) avec le new
 
-        //On stock si y'en un creneau deja utilisé
-        $isAlreadyUsedCreneau = DB::table('reservations')->where('selectedDate', '=', $params['selectedDate'])->where('creneau1', '=', $params['creneau'])->get();
+        //On stock si y'en des creneau deja utilisés
+        $isAlreadyUsedCreneau = DB::table('reservations')->where('selectedDate', '=', $params['selectedDate'])->where('creneau1', '=', $params['creneau'])->count();
 
         //Si il y a un creneau 2 on vérifie aussi
-        if (count($selectedCreneaux) > 1)
-            $isAlreadyUsedCreneau2 = DB::table('reservations')->where('selectedDate', '=', $params['selectedDate'])->where('creneau2', '=', $params['creneau2'])->get();
+        if (count($selectedCreneaux) > 1){
+            $isAlreadyUsedCreneau2 = DB::table('reservations')->where('selectedDate', '=', $params['selectedDate'])->where('creneau2', '=', $params['creneau2'])->count();
+            $isAlreadyUsedCreneau2ButInTheFirst = DB::table('reservations')->where('selectedDate', '=', $params['selectedDate'])->where('creneau1', '=', $params['creneau2'])->count();
+        }
 
         //Redirect avec erreur si déjà réservé
-        if ($isAlreadyUsedCreneau != null || (isset($isAlreadyUsedCreneau2) && $isAlreadyUsedCreneau2 != null)) {
-            return redirect('reservation')->with('error', 'Oh quel dommage ! Un créneau est déjà réservé a cette heure-ci ');
-        }
+        if ($isAlreadyUsedCreneau > 0)
+            return redirect('reservation')->with('error', 'Oh quel dommage ! Votre premier créneau est déjà réservé a cette heure-ci ')->withInput();
+        else if((isset($isAlreadyUsedCreneau2) && $isAlreadyUsedCreneau2 > 0) || (isset($isAlreadyUsedCreneau2ButInTheFirst) && $isAlreadyUsedCreneau2ButInTheFirst > 0))
+            return redirect('reservation')->with('error', 'Oh quel dommage ! Votre second créneau est déjà réservé a cette heure-ci ')->withInput();
+
 
         //Si le créneau est libre
         if (count($selectedCreneaux) > 1) {
@@ -96,18 +100,16 @@ class ReservationController extends Controller
                 'creneau2' => $params['creneau2']
             ]);
 
-        } else { //Alors oui c'est aps bien de faire 2 fois une insertion mais j'avoues j'ai pas trouvé mieux
-
-            //Stockage en bd
-            DB::table('reservations')->insert([
-                'email' => $params['email'],
-                'selectedDate' => $params['selectedDate'],
-                'token' => $token,
-                'creneau1' => $params['creneau'],
-                'creneau2' => '' //null en gros
-            ]);
-
         }
+
+        //Stockage en bd
+        DB::table('reservations')->insert([
+            'email' => $params['email'],
+            'selectedDate' => $params['selectedDate'],
+            'token' => $token,
+            'creneau1' => $params['creneau'],
+            'creneau2' => '' //null en gros
+        ]);
 
         //Pas réussi avec les mailables sry :'(
         //Mail::to('widdershins@studio.com', 'WidderStudio')->send(new Reservation($params));
