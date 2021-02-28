@@ -34,40 +34,69 @@ class ReservationController extends Controller
         //$params += ["subject" => "WidderStudio Confirmation Réservation"];
 
         //Si il y a plus de 5 items c'est que l'user a selectionné plusieurs checkbox (Token, Date, Creneau1 et/ou Creneau2, email)
-        if(count($params) > 5){
-            dd($params);
+        if (count($params) > 5) {
+            return redirect('reservation')->with('error', '2 créneaux sont possible seulement !');
         }
 
-        $selectedCreneaux = [];
+        //GESTION JOUR DE SEMAINE
+        //On chope le jour de la semaine
+        $dayOfWeek = Carbon::parse($params['selectedDate'])->dayOfWeek;
+
+        //check du jour de la semaine
+        switch ($dayOfWeek) {
+            case 6:
+                return redirect('reservation')->with('error', 'Fermé le samedi');
+                break;
+
+            case 0:
+                return redirect('reservation')->with('error', 'Fermé le dimanche');
+                break;
+        }
 
         //GESTION CRENEAUX
-        foreach(Config::get('information.open_hours') as $creneau){
-            if(isset($params[$creneau]) && $params[$creneau] === 'on')
-                array_push( $selectedCreneaux, $creneau); //on ajoute dans le tableau
+        $selectedCreneaux = [];
+
+        foreach (Config::get('information.open_hours') as $creneau) {
+            if (isset($params[$creneau]) && $params[$creneau] === 'on')
+                array_push($selectedCreneaux, $creneau); //on ajoute dans le tableau
         }
 
         //Pour le créneau1
         $params['creneau'] = $selectedCreneaux[0];
 
+        //Stockage du creneau2 si il existe
+        if (count($selectedCreneaux) > 1)
+            $params['creneau2'] = $selectedCreneaux[1];
+
         //Génération du token
         $token = md5(uniqid(true));
         $params['_token'] = $token; //on modifie le token déjà existant (celui de mailtrap) avec le new
 
-        //Si il y a un 2eme creneaux, on l'ajoute
-        if(count($selectedCreneaux) > 1){
+        //On stock si y'en un creneau deja utilisé
+        $isAlreadyUsedCreneau = DB::table('reservations')->where('selectedDate', '=', $params['selectedDate'])->where('creneau1', '=', $params['creneau'])->get();
 
-            //Stockage du creneau2
-            $params['creneau2'] = $selectedCreneaux[1];
+        //Si il y a un creneau 2 on vérifie aussi
+        if (count($selectedCreneaux) > 1)
+            $isAlreadyUsedCreneau2 = DB::table('reservations')->where('selectedDate', '=', $params['selectedDate'])->where('creneau2', '=', $params['creneau2'])->get();
 
-            //Stockage en bd
+        //Redirect avec erreur si déjà réservé
+        if ($isAlreadyUsedCreneau != null || (isset($isAlreadyUsedCreneau2) && $isAlreadyUsedCreneau2 != null)) {
+            return redirect('reservation')->with('error', 'Oh quel dommage ! Un créneau est déjà réservé a cette heure-ci ');
+        }
+
+        //Si le créneau est libre
+        if (count($selectedCreneaux) > 1) {
+
+            //Stockage en bd des 2 créneaux
             DB::table('reservations')->insert([
                 'email' => $params['email'],
                 'selectedDate' => $params['selectedDate'],
                 'token' => $token,
+                'creneau1' => $params['creneau'],
                 'creneau2' => $params['creneau2']
             ]);
 
-        }else{ //Alors oui c'est aps bien de faire 2 fois une insertion mais j'avoues j'ai pas trouvé mieux
+        } else { //Alors oui c'est aps bien de faire 2 fois une insertion mais j'avoues j'ai pas trouvé mieux
 
             //Stockage en bd
             DB::table('reservations')->insert([
@@ -80,11 +109,11 @@ class ReservationController extends Controller
 
         }
 
-
+        //Pas réussi avec les mailables sry :'(
         //Mail::to('widdershins@studio.com', 'WidderStudio')->send(new Reservation($params));
 
         //Envoi de l'email
-        Mail::send('emails.reservation_mail', $params, function ($m) use ($params){
+        Mail::send('emails.reservation_mail', $params, function ($m) use ($params) {
             $m->from($params['email']);
             $m->to(Config::get('information.email'), Config::get('information.name_email'))->subject('Confirmation Réservation WidderStudio');
         });
@@ -102,8 +131,6 @@ class ReservationController extends Controller
 
         //DELETE de la row ayant le token
         DB::table('reservations')->where('token', '=', $params['token_user'])->delete();
-
-        //On renvoit un mail pour valider le fait qu'il a annulé son
 
 
         return redirect('reservation/annulation')->with('status', 'Votre annulation de réservation a bien été validée, en espérant vous revoir vite !');
