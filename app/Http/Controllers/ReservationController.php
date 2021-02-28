@@ -100,16 +100,16 @@ class ReservationController extends Controller
                 'creneau2' => $params['creneau2']
             ]);
 
+        }else{
+            //Stockage en bd
+            DB::table('reservations')->insert([
+                'email' => $params['email'],
+                'selectedDate' => $params['selectedDate'],
+                'token' => $token,
+                'creneau1' => $params['creneau'],
+                'creneau2' => '' //null en gros
+            ]);
         }
-
-        //Stockage en bd
-        DB::table('reservations')->insert([
-            'email' => $params['email'],
-            'selectedDate' => $params['selectedDate'],
-            'token' => $token,
-            'creneau1' => $params['creneau'],
-            'creneau2' => '' //null en gros
-        ]);
 
         //Pas réussi avec les mailables sry :'(
         //Mail::to('widdershins@studio.com', 'WidderStudio')->send(new Reservation($params));
@@ -136,18 +136,17 @@ class ReservationController extends Controller
 
             //on renvoit l'annulation par email
             Mail::send('emails.annulation_mail', [], function ($m) {
-                $m->from(Config::get('informatsion.email'));
+                $m->from(Config::get('information.email'));
                 $m->to(Config::get('information.email'), Config::get('information.name_email'))->subject('Annulation Réservation WidderStudio');
             });
 
             //DELETE de la row ayant le token
             DB::table('reservations')->where('token', '=', $params['token_user'])->delete();
+
         }else{
             //sinon redirect
             return redirect('reservation/annulation')->with('error', 'Ce token n\'existe pas !');
         }
-
-
 
         return redirect('reservation/annulation')->with('status', 'Votre annulation de réservation a bien été validée, en espérant vous revoir vite !');
 
