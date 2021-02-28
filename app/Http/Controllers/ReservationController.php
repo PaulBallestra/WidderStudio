@@ -63,7 +63,7 @@ class ReservationController extends Controller
         }
 
         if(count($selectedCreneaux) === 0)
-            return redirect('reservation')->with('error', 'Vous devez réserver au moin 1 créneau !');
+            return redirect('reservation')->with('error', 'Vous devez réserver au moin 1 créneau !')->withInput();
 
 
         $params['creneau'] = $selectedCreneaux[0];
