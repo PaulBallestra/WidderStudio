@@ -129,10 +129,24 @@ class ReservationController extends Controller
 
         $params = $request->all();
 
-        //dd($params['token_user']);
+        $isTokenExists = DB::table('reservations')->where('token', '=', $params['token_user'])->count();
 
-        //DELETE de la row ayant le token
-        DB::table('reservations')->where('token', '=', $params['token_user'])->delete();
+        //Si il existe alors on le delete
+        if($isTokenExists > 0){
+
+            //on renvoit l'annulation par email
+            Mail::send('emails.annulation_mail', [], function ($m) {
+                $m->from(Config::get('informatsion.email'));
+                $m->to(Config::get('information.email'), Config::get('information.name_email'))->subject('Annulation Réservation WidderStudio');
+            });
+
+            //DELETE de la row ayant le token
+            DB::table('reservations')->where('token', '=', $params['token_user'])->delete();
+        }else{
+            //sinon redirect
+            return redirect('reservation/annulation')->with('error', 'Ce token n\'existe pas !');
+        }
+
 
 
         return redirect('reservation/annulation')->with('status', 'Votre annulation de réservation a bien été validée, en espérant vous revoir vite !');
