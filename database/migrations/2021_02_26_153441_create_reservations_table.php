@@ -14,6 +14,8 @@ class CreateReservationsTable extends Migration
             $table->string('email');
             $table->date('selectedDate');
             $table->text('token');
+            $table->text('creneau1');
+            $table->text('creneau2');
         });
     }
 
