@@ -33,9 +33,9 @@ class ReservationController extends Controller
         $params = $request->all();
         //$params += ["subject" => "WidderStudio Confirmation Réservation"];
 
-        //Si il y a plus de 5 items c'est que l'user a selectionné plusieurs checkbox (Token, Date, Creneau1 et/ou Creneau2, email)
-        if (count($params) > 5) {
-            return redirect('reservation')->with('error', '2 créneaux sont possible seulement !');
+        //Si il y a plus de 6 items c'est que l'user a selectionné plusieurs créneaux (Token, Date, Creneau1 et/ou Creneau2, email, CGU)
+        if (count($params) > 6) {
+            return redirect('reservation')->with('error', 'Trop de créneaux, 2 sont possible seulement !');
         }
 
         //GESTION JOUR DE SEMAINE
@@ -91,7 +91,6 @@ class ReservationController extends Controller
             return redirect('reservation')->with('error', 'Oh quel dommage ! Votre premier créneau est déjà réservé a cette heure-ci ')->withInput();
         else if((isset($isAlreadyUsedCreneau2) && $isAlreadyUsedCreneau2 > 0) || (isset($isAlreadyUsedCreneau2ButInTheFirst) && $isAlreadyUsedCreneau2ButInTheFirst > 0))
             return redirect('reservation')->with('error', 'Oh quel dommage ! Votre second créneau est déjà réservé a cette heure-ci ')->withInput();
-
 
         //Si le créneau est libre
         if (count($selectedCreneaux) > 1) {

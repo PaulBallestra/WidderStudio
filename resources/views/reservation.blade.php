@@ -100,20 +100,19 @@
                                     <tr>
                                         <!-- GESTION DES CRENEAUX DYNAMIQUEMENT -->
 
-                                        <?php
-                                            use Illuminate\Support\Facades\Config;
-                                            foreach(Config::get('information.open_hours') as $creneau) :
-                                        ?>
-                                            <!-- BTN du créneau -->
-                                            <th>
-                                                <label for="<?= $creneau ?>">
-                                                    <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
-                                                        <?= $creneau ?>
-                                                        <input type="checkbox" name="<?= $creneau ?>" id="<?= $creneau ?>">
-                                                    </a>
-                                                </label>
-                                            </th>
-
+                                    <?php
+                                    use Illuminate\Support\Facades\Config;
+                                    foreach(Config::get('information.open_hours') as $creneau) :
+                                    ?>
+                                    <!-- BTN du créneau -->
+                                        <th>
+                                            <label for="<?= $creneau ?>">
+                                                <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
+                                                    <?= $creneau ?>
+                                                    <input type="checkbox" name="<?= $creneau ?>" id="<?= $creneau ?>">
+                                                </a>
+                                            </label>
+                                        </th>
 
                                         <?php endforeach; ?>
 
@@ -142,6 +141,12 @@
                                        class="align-middle inline-block appearance-none rounded-none relative block w-3/6 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm"
                                        placeholder="contact@email.example" value="{{ old('email') }}">
                             </div>
+                        </div>
+
+                        <!-- CGU -->
+                        <div>
+                            <input type="checkbox" id="inputCGU" name="inputCGU">
+                            <label for="inputCGU"> J'ai lu et j'accepte les <a href="" class="text-green-900">conditions générales d'utilisation</a> </label>
                         </div>
 
                         <!-- BTN Reserver -->
