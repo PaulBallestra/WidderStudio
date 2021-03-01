@@ -80,7 +80,7 @@
 
                     @csrf
 
-                        <!-- DATE PICKER -->
+                    <!-- DATE PICKER -->
                         <input class="mt-3"
                                wire:model="taskduedate"
                                name="selectedDate"
@@ -98,59 +98,78 @@
                                 <table class="min-w-full divide-y divide-gray-200">
                                     <tbody class="bg-gray-50">
                                     <tr>
+
                                         <th>
-                                            <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
-                                                9-10
-                                                <input type="checkbox" name="9-10h">
-                                            </a>
+                                            <label for="9-10h">
+                                                <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
+                                                    9-10
+                                                    <input type="checkbox" name="9-10h" id="9-10h">
+                                                </a>
+                                            </label>
                                         </th>
                                         <th>
-                                            <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
-                                                10-11
-                                                <input type="checkbox" name="10-11h">
-                                            </a>
+                                            <label for="10-11h">
+                                                <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
+                                                    10-11
+                                                    <input type="checkbox" name="10-11h" id="10-11h">
+                                                </a>
+                                            </label>
                                         </th>
                                         <th>
-                                            <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
-                                                11-12
-                                                <input type="checkbox" name="11-12h">
-                                            </a>
+                                            <label for="11-12h">
+                                                <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
+                                                    11-12
+                                                    <input type="checkbox" name="11-12h" id="11-12h">
+                                                </a>
+                                            </label>
                                         </th>
                                         <th>
-                                            <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
-                                                12-13
-                                                <input type="checkbox" name="12-13h">
-                                            </a>
+                                            <label for="12-13h">
+                                                <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
+                                                    12-13
+                                                    <input type="checkbox" name="12-13h" id="12-13h">
+                                                </a>
+                                            </label>
                                         </th>
                                         <th>
-                                            <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
-                                                13-14
-                                                <input type="checkbox" name="13-14h">
-                                            </a>
+                                            <label for="13-14h">
+                                                <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
+                                                    13-14
+                                                    <input type="checkbox" name="13-14h" id="13-14h">
+                                                </a>
+                                            </label>
                                         </th>
                                         <th>
-                                            <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
-                                                14-15
-                                                <input type="checkbox" name="14-15h">
-                                            </a>
+                                            <label for="14-15h">
+                                                <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
+                                                    14-15
+                                                    <input type="checkbox" name="14-15h" id="14-15h">
+                                                </a>
+                                            </label>
                                         </th>
                                         <th>
-                                            <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
-                                                15-16
-                                                <input type="checkbox" name="15-16h">
-                                            </a>
+                                            <label for="9-10h">
+                                                <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
+                                                    15-16
+                                                    <input type="checkbox" name="15-16h" id="15-16h">
+                                                </a>
+                                            </label>
                                         </th>
                                         <th>
-                                            <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
-                                                16-17
-                                                <input type="checkbox" name="16-17h">
-                                            </a>
+                                            <label for="16-17h">
+                                                <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
+                                                    16-17
+                                                    <input type="checkbox" name="16-17h" id="16-17h">
+                                                </a>
+                                            </label>
                                         </th>
                                         <th>
-                                            <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
-                                                17-18
-                                                <input type="checkbox" name="17-18h">
-                                            </a>
+                                            <label for="17-18h">
+                                                <a class="bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded">
+                                                    17-18
+                                                    <input type="checkbox" name="17-18h" id="17-18h">
+                                                </a>
+                                            </label>
                                         </th>
                                     </tr>
                                     </tbody>
