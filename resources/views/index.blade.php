@@ -26,7 +26,7 @@
 
                     </h1>
                     <p class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                        Les studios Widdershins sont des studios d'enregistrement français situés à Londres au 3 Abbey Rd, St John's Wood. Plusieurs groupes célèbres y ont enregistré, tels que les Beatles, Pink Floyd, Oasis et Radiohead, et plus récemment Lady Gaga, Kylie Minogue et Robbie Williams.
+                        Les studios Widdershins sont des studios d'enregistrement français situés à Londres au 3 Abbey Rd, St John's Wood. Plusieurs groupes célèbres y ont enregistré, tels que les Beatles, Pink Floyd, Oasis et Radiohead, et plus récemment Lady Gaga, Kylie Minogue et Robbie Williams ainsi que <a href="https://www.facebook.com/Widdershins-105824354885435">Widdershins</a>.
                     </p>
                     <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                         <div class="rounded-md shadow">
