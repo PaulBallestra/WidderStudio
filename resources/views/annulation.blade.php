@@ -23,6 +23,22 @@
 
     @endif
 
+    <!-- Custom erreur -->
+    @if (session('error'))
+        <div
+            class="max-w-7xl text-white mt-3 px-6 py-4 border-0 rounded relative mb-3 bg-red-500 flex flex-col mx-auto">
+            <span class="inline-block align-middle mr-8">
+
+                {{ session('error') }}
+
+            </span>
+            <button
+                class="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none">
+                <span>×</span>
+            </button>
+        </div>
+    @endif
+
     <!-- GESTION DES ERREURS -->
     @if ($errors->any())
 

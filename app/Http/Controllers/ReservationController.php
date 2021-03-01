@@ -136,8 +136,15 @@ class ReservationController extends Controller
 
         $isTokenExists = DB::table('reservations')->where('token', '=', $params['token_user'])->count();
 
-        //Si il existe alors on le delete
-        if($isTokenExists > 0){
+        //dd($isTokenExists, $params['token_user']);
+
+        //Si il n'existe pas (= 0)
+        if(!$isTokenExists){
+
+            //on redirect
+            return redirect('reservation/annulation')->with('error', 'Ce token n\'existe pas !');
+
+        }else{
 
             //on renvoit l'annulation par email
             Mail::send('emails.annulation_mail', [], function ($m) {
@@ -148,12 +155,10 @@ class ReservationController extends Controller
             //DELETE de la row ayant le token
             DB::table('reservations')->where('token', '=', $params['token_user'])->delete();
 
-        }else{
-            //sinon redirect
-            return redirect('reservation/annulation')->with('error', 'Ce token n\'existe pas !');
+            return redirect('reservation/annulation')->with('status', 'Votre annulation de réservation a bien été validée, en espérant vous revoir vite !');
+
         }
 
-        return redirect('reservation/annulation')->with('status', 'Votre annulation de réservation a bien été validée, en espérant vous revoir vite !');
 
     }
 }
